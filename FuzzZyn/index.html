@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FuzzZyn</title>
+<document.title=/FuzzZyn>
+</head>
+<body>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #1e001e, #3b004b);
+      color: white;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #2e0032;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #000;
+      position: relative;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 20px;
+      padding-right: 120px; /* ADICIONADO para evitar sobreposição do user-icon */
+    }
+
+    .search-icon {
+      width: 30px;
+      height: 30px;
+      background-color: #a300b8;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .search-text {
+      font-size: 20px;
+    }
+
+    .search-input {
+      margin-left: auto;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #2e0032;
+      font-size: 14px;
+    }
+
+    .decor-stars {
+      text-align: center;
+      font-size: 20px;
+      margin: 10px 0 20px;
+      color: #ffccff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .music-card {
+      background: linear-gradient(90deg, #ffd6f5 30%, #d37aff 70%);
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #2e0032;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .music-card:hover {
+      transform: scale(1.03);
+    }
+
+    .sections {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 20px;
+    }
+
+    .section-box {
+      background-color: #4a0059;
+      padding: 15px;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    .section-box h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .album-preview {
+      height: 80px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #ffccff, #b266ff);
+    }
+
+    .doll {
+      position: absolute;
+      top: 40px;
+      right: -50px;
+      width: 120px;
+    }
+
+    .user-icon {
+      position: absolute;
+      top: 20px; /* AJUSTADO de 30px para 20px para melhor alinhamento */
+      right: 70px;
+      width: 40px;
+      height: 40px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png');
+      background-size: cover;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sections {
+        flex-direction: column;
+      }
+
+      .doll {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- ícone do usuário -->
+    <div class="user-icon"></div>
+
+    <!-- Barra de busca -->
+    <div class="top-bar">
+      <div class="search-icon">🔍</div>
+      <div class="search-text">Qual é a música do dia?</div>
+      <input class="search-input" type="text" id="search" placeholder="Buscar música..." />
+    </div>
+
+    <!-- Decoração -->
+    <div class="decor-stars">✨✨✨✨✨✨✨✨✨✨</div>
+
+    <!-- Blocos de músicas -->
+    <div class="grid" id="musicList">
+      <!-- JavaScript irá preencher -->
+    </div>
+
+    <!-- Seções recomendadas -->
+    <div class="sections">
+      <div class="section-box">
+        <h3>Álbuns recomendados</h3>
+        <div class="album-preview"></div>
+        <div class="album-preview"></div>
+        <small>Album - Artista</small>
+      </div>
+      <div class="section-box">
+        <h3>Músicas recomendadas</h3>
+        <div class="album-preview"></div>
+        <div class="album-preview"></div>
+        <small>Música - Artista</small>
+      </div>
+      <div class="section-box">
+        <h3>Músicas mais ouvidas pelos usuários</h3>
+        <div class="album-preview"></div>
+        <div class="album-preview"></div>
+        <small>Música - Artista</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const musicas = [
+      "Música #1", "Melodia Rosa", "Noite Brilhante", 
+      "Luz do Pop", "Som do Coração", "Batida Perfeita"
+    ];
+
+    const lista = document.getElementById("musicList");
+
+    function mostrarMusicas(filtro = "") {
+      lista.innerHTML = "";
+      musicas
+        .filter(nome => nome.toLowerCase().includes(filtro.toLowerCase()))
+        .forEach(nome => {
+          const div = document.createElement("div");
+          div.className = "music-card";
+          div.textContent = nome;
+          div.onclick = () => alert(`Você selecionou: ${nome}`);
+          lista.appendChild(div);
+        });
+    }
+
+    document.getElementById("search").addEventListener("input", e => {
+      mostrarMusicas(e.target.value);
+    });
+
+    // Carrega ao iniciar
+    mostrarMusicas();
+  </script>
+
+</body>
+</html>
